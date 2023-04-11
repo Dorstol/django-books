@@ -1,8 +1,13 @@
 <!-- templates/home.html -->
 {% extends "_base.html" %}
-{% load static %}
-{% block title %}Home{% endblock title %}
+
+{% block title %}MyBookStore{% endblock title %}
+
 {% block content %}
-    <h1>This is our home page.</h1>
-    <img class="bookcover" src="{% static 'images/dfp.jpg' %}">
+
+  <div class="jumbotron">
+    <h1>Welcome to MyBookStore</h1>
+    <p>We have a great selection of books for you to choose from. Check out our latest arrivals below:</p>
+    <p><a class="btn btn-primary btn-lg" href="{% url 'book_list' %}" role="button">Browse Books &raquo;</a></p>
+  </div>
 {% endblock content %}
