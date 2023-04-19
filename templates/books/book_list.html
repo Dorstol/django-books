@@ -5,46 +5,25 @@
 
 {% block content %}
 
-  <div class="container">
-    <form method="GET" class="mb-4">
-      {% csrf_token %}
-      <div class="row">
-        <div class="col">
-          <input type="text" name="title" class="form-control" placeholder="Title" value="{{ form.title.value }}">
-        </div>
-        <div class="col">
-          <input type="text" name="author" class="form-control" placeholder="Author" value="{{ form.author.value }}">
-        </div>
-        <div class="col">
-          <input type="number" name="min_price" class="form-control" placeholder="Min price" value="{{ form.min_price.value }}">
-        </div>
-        <div class="col">
-          <input type="number" name="max_price" class="form-control" placeholder="Max price" value="{{ form.max_price.value }}">
-        </div>
-        <div class="col-auto">
-          <button type="submit" class="btn btn-primary">Filter</button>
-        </div>
-      </div>
-    </form>
-    <div class="row">
-      {% for book in book_list %}
-        <div class="col-md-4 mb-4">
-          <div class="card">
-            {% if book.cover %}
-              <img src="{{ book.cover.url }}" class="card-img-top img-fluid" alt="...">
-            {% endif %}
-            <div class="card-body">
-              <h5 class="card-title mb-0"><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></h5>
-              <div class="mb-3">
-                <small class="text-muted">{{ book.author }}</small>
-              </div>
-              <p class="card-text mb-3">{{ book.description }}</p>
-              <h6 class="card-subtitle mb-2 text-muted">{{ book.price }}</h6>
-              <a href="#" class="btn btn-primary">Buy Now</a>
-            </div>
-          </div>
-        </div>
-      {% endfor %}
-    </div>
-  </div>
+<header class="major">
+  <h2>Books list</h2>
+</header>
+<div class="posts">
+  {% for book in book_list %}
+  <article>
+    {% if book.cover %}
+      <a href="{{ book.get_absolute_url }}" class="image"><img src="{{ book.cover.url }}" alt="cover" /></a>
+    {% else %}
+      <p>No image</p>
+    {% endif %}
+    <h3>Title: {{ book.title }}</h3>
+    <p>Author: {{ book.author }}</p>
+    <p>Price: {{ book.price }}</p>
+    <ul class="actions">
+      <li><a href="{{ book.get_absolute_url }}" class="button">More</a></li>
+    </ul>
+  </article>
+  {% endfor %}
+</div>
+
 {% endblock content %}

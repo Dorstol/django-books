@@ -4,12 +4,24 @@
 
 {% block content %}
 
-    <h1>Search results</h1>
-    {% for book in book_list %}
-        <div>
-            <h3><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></h3>
-            <p>Author: {{ book.author }}</p>
-            <p>Price: {{ book.price }}</p>
-        </div>
-    {% endfor %}
+<header class="major">
+  <h2>Books list</h2>
+</header>
+<div class="posts">
+  {% for book in book_list %}
+  <article>
+    {% if book.cover %}
+      <a href="{{ book.get_absolute_url }}" class="image"><img src="{{ book.cover.url }}" alt="cover" /></a>
+    {% else %}
+      <p>No image</p>
+    {% endif %}
+    <h3>Title: {{ book.title }}</h3>
+    <p>Author: {{ book.author }}</p>
+    <p>Price: {{ book.price }}</p>
+    <ul class="actions">
+      <li><a href="{{ book.get_absolute_url }}" class="button">More</a></li>
+    </ul>
+  </article>
+  {% endfor %}
+</div>
 {% endblock content %}

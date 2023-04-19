@@ -20,10 +20,20 @@ services:
       - "DJANGO_CSRF_COOKIE_SECURE=False"
   db:
     image: postgres:13
+    restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
       - "POSTGRES_HOST_AUTH_METHOD=trust"
-
+  redis:
+    image: redis:alpine
+  worker:
+    build: .
+    command: celery -A django_project worker --loglevel=info
+    volumes:
+      - .:/code
+    depends_on:
+      - redis
+      - web
 volumes:
   postgres_data:
